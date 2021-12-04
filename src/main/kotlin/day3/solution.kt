@@ -1,5 +1,6 @@
 package day3
 
+import utils.trans
 import java.io.File
 import java.lang.IllegalArgumentException
 
@@ -33,7 +34,7 @@ fun main() {
         }
     }
 
-    val toNumberMapper = { i: List<Int> ->
+    val binaryToDec = { i: List<Int> ->
         i.joinToString(separator = "") {
             it.toString()
         }.also { println(it) }
@@ -41,10 +42,9 @@ fun main() {
             .also { println(it) }
     }
 
-
     println(
-        "product of multiplying those values is ${
-        toNumberMapper.invoke(result) * toNumberMapper.invoke(result.revBitMask())
+        "product: ${
+        binaryToDec.invoke(result) * binaryToDec.invoke(result.revBitMask())
         }"
     )
 
@@ -66,7 +66,7 @@ fun main() {
 
     println(
         "product of multiplying oxygen and co2 is ${
-        toNumberMapper.invoke(ox) * toNumberMapper.invoke(co2)
+        binaryToDec.invoke(ox) * binaryToDec.invoke(co2)
         }"
     )
 }
@@ -86,12 +86,6 @@ fun List<List<Int>>.reduceByBit(f: (zeros: Int, ones: Int) -> Int): List<Int> {
         index++
     }
     return res[0]
-}
-
-fun List<List<Int>>.trans(): List<List<Int>> {
-    return (this[0].indices).map { i ->
-        this.map { it[i] }
-    }
 }
 
 fun List<Int>.revBitMask(): List<Int> {
