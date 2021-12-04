@@ -1,10 +1,8 @@
 package day4
 
 import utils.trans
-import java.io.File
-import java.lang.IllegalArgumentException
 
-val input = File("./src/main/kotlin/day4/input.txt")
+val input = utils.input("day4/input.txt")
     .readLines()
 
 val order = input.first().split(",")
@@ -17,7 +15,8 @@ val boards = input.drop(1)
     }
     .chunked(5)
 
-typealias Matrix = List<List<Int>>
+// Override typealias
+typealias Matrix = utils.Matrix<Int>
 
 fun main() {
     // 1. find winning board
@@ -84,6 +83,7 @@ fun Matrix.isWinning(input: List<Int>): Boolean {
             return true
         }
     }
+    // check vertical
     this.trans().forEach { line ->
         if (line.all { input.contains(it) }) {
             return true

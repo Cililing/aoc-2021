@@ -1,14 +1,12 @@
 package day2
 
-import java.io.File
-
 enum class Direction {
     Forward,
     Down,
     Up
 }
 
-val input = File("./src/main/kotlin/day2/input.txt")
+val input = utils.input("day2/input.txt")
     .readLines()
     .map {
         val split = it.split(" ")

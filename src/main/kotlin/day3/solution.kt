@@ -1,40 +1,36 @@
 package day3
 
+import utils.input
+import utils.revBitMask
 import utils.trans
 import java.io.File
 import java.lang.IllegalArgumentException
 
-val input = File("./src/main/kotlin/day3/input.txt")
+val input = input("day3/input.txt")
     .readLines()
     .map { line ->
-        line.map {
-            if (it == '1') {
-                1
-            } else {
-                0
-            }
-        }
+        line.map { it == '1' }
     }
 
 fun main() {
-    val result = mutableListOf<Int>()
+    val result = mutableListOf<Boolean>()
     input.trans().forEach { v ->
-        val zeros = v.count { it == 0 }
-        val ones = v.count { it == 1 }
+        val zeros = v.count { !it }
+        val ones = v.count { it }
         when {
             zeros == ones -> {
                 throw IllegalArgumentException("cannot be equal")
             }
             zeros > ones -> {
-                result.add(0)
+                result.add(false)
             }
             else -> {
-                result.add(1)
+                result.add(true)
             }
         }
     }
 
-    val binaryToDec = { i: List<Int> ->
+    val binaryToDec = { i: List<Boolean> ->
         i.joinToString(separator = "") {
             it.toString()
         }.also { println(it) }
@@ -51,16 +47,16 @@ fun main() {
     // part 2
     val ox = input.reduceByBit { zeros, ones ->
         when {
-            ones > zeros -> 1
-            zeros > ones -> 0
-            else -> 1
+            ones > zeros -> true
+            zeros > ones -> false
+            else -> true
         }
     }
     val co2 = input.reduceByBit { zeros, ones ->
         when {
-            ones < zeros -> 1
-            zeros < ones -> 0
-            else -> 0
+            ones < zeros -> true
+            zeros < ones -> false
+            else -> false
         }
     }
 
@@ -71,14 +67,14 @@ fun main() {
     )
 }
 
-fun List<List<Int>>.reduceByBit(f: (zeros: Int, ones: Int) -> Int): List<Int> {
+fun List<List<Boolean>>.reduceByBit(f: (zeros: Int, ones: Int) -> Boolean): List<Boolean> {
     var res = this.toList()
     var index = 0
 
     while (res.size != 1) {
         val trans = res.trans()
-        val zeros = trans[index].count { it == 0 }
-        val ones = trans[index].count { it == 1 }
+        val zeros = trans[index].count { !it}
+        val ones = trans[index].count { it }
 
         val v = f(zeros, ones)
         res = res.filter { it[index] == v }
@@ -86,14 +82,4 @@ fun List<List<Int>>.reduceByBit(f: (zeros: Int, ones: Int) -> Int): List<Int> {
         index++
     }
     return res[0]
-}
-
-fun List<Int>.revBitMask(): List<Int> {
-    return this.map {
-        when (it) {
-            0 -> 1
-            1 -> 0
-            else -> throw IllegalArgumentException("must be 0 or 1")
-        }
-    }
 }

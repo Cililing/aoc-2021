@@ -1,8 +1,8 @@
 package day1
 
-import java.io.File
+import utils.input
 
-val input = File("./src/main/kotlin/day1/input.txt")
+val input = input("day1/input.txt")
     .readLines()
     .map { it.toInt() }
 
