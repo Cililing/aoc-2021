@@ -1,11 +1,18 @@
 package utils
 
 typealias Row<T> = List<T>
+typealias MutableRow<T> = MutableList<T>
 
 typealias Matrix<T> = List<Row<T>>
-
+typealias MutableMatrix<T> = MutableList<MutableList<T>>
 
 fun <T> matrixOf(rows: List<T>): Matrix<T> = listOf(rows)
+
+fun <T> mutableMatrixOf(size: Int, initialValue: T): MutableMatrix<T> {
+    return MutableList(size) {
+        MutableList(size) { initialValue }
+    }
+}
 
 /**
  * @param a number of items in a single row (applicable to all rows)
