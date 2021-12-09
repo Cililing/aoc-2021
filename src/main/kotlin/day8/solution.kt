@@ -32,7 +32,7 @@ fun ex1(): Int {
 }
 
 fun ex2(): Int {
-    return input.sumBy {
+    return input.sumOf {
         val mappings = guessMappings(it.patterns.map { it.toList() })
 
         it.output.map {
