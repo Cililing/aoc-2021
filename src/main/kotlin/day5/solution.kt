@@ -27,7 +27,7 @@ val input: List<Pair<Coordinates, Coordinates>> = utils.input("day5/input.txt")
 fun main() {
     val maxSize = input.map {
         listOf(it.first.first, it.first.second, it.second.first, it.second.second)
-    }.flatten().max()!!
+    }.flatten().maxOrNull()!!
 
     val vertical = input.filter { it.isVertical() }.map {
         if (it.first.first < it.second.first) it else Pair(it.second, it.first)

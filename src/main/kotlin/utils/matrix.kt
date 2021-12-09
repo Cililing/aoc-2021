@@ -19,6 +19,47 @@ fun <T> mutableMatrixOf(size: Int, initialValue: T): MutableMatrix<T> {
  */
 fun <T> matrixOf(a: Int, vararg elements: T): Matrix<T> = elements.toList().chunked(a)
 
+fun <T> Matrix<T>.get(a: Int, b: Int): T = this[a][b]
+
+fun <T> Matrix<T>.get(c: Coordinates): T = this.get(c.x(), c.y())
+
+fun <T> Matrix<T>.forEachIndexed(v: (a: Int, b: Int, v: T) -> Unit) {
+    this.forEachIndexed { index1, row ->
+        row.forEachIndexed { index2, n ->
+            v(index1, index2, n)
+        }
+    }
+}
+
+typealias Adjacent<T> = List<Pair<Coordinates, T>>
+
+fun <T> Adjacent<T>.positions() = this.map { it.first }
+fun <T> Adjacent<T>.values() = this.map { it.second }
+
+/**
+ * Returns list of coordinates and values
+ *
+ * Not working for matrix of size 1
+ */
+fun <T> Matrix<T>.adjacent(a: Int, b: Int): List<Pair<Coordinates, T>> {
+    val res = mutableListOf<Pair<Coordinates, T>>()
+    if (a > 0) {
+        // try to find up
+        res.add(Coordinates(a - 1, b) to this[a - 1][b])
+    }
+    if (a < this.size - 1) {
+        // try to find down
+        res.add(Coordinates(a + 1, b) to this[a + 1][b])
+    }
+    if (b > 0) {
+        res.add(Coordinates(a, b - 1) to this[a][b - 1])
+    }
+    if (b < this[0].size - 1) {
+        res.add(Coordinates(a, b + 1) to this[a][b + 1])
+    }
+    return res
+}
+
 /**
  * Transposes matrix
  */
