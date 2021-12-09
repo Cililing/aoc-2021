@@ -2,6 +2,9 @@ package utils
 
 typealias Coordinates = Pair<Int, Int>
 
-fun Coordinates.x() = this.first
-fun Coordinates.y() = this.second
+val Coordinates.x: Int
+    get() = this.first
+
+val Coordinates.y: Int
+    get() = this.second
 

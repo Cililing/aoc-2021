@@ -11,10 +11,10 @@ data class Input(
 val input = utils.input("day8/input.txt")
     .readLines()
     .map { it.split("|") }
-    .map {
+    .map { it ->
         Input(
-            it[0].split(" ").filter { it.count() != 0 },
-            it[1].split(" ").filter { it.count() != 0 }
+            it[0].split(" ").filter { it.isNotEmpty() },
+            it[1].split(" ").filter { it.isNotEmpty() }
         )
     }
 
@@ -66,7 +66,7 @@ fun guessMappings(patterns: List<List<Char>>, printer: ((Any?) -> Unit)? = null)
     val n9 = patterns.filter { it.count() == 6 }
         .filter { it.containsAll(n4) }
         .first { it.contains(aaa) }
-    val ggg = (n9 - n4).filter { it != aaa }.first()
+    val ggg = (n9 - n4).first { it != aaa }
     printer?.invoke("ggg found: $ggg")
     requireNonEqual(aaa, ggg)
 

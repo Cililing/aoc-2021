@@ -17,18 +17,18 @@ fun main() {
 private fun ex2(): Int? {
     val (min, max) = input.minOrNull()!! to input.maxOrNull()!!
 
-    return (min..max).map {
-        input.sumBy { x ->
+    return (min..max).minOfOrNull {
+        input.sumOf { x ->
             val steps = abs(it - x)
             eps(steps)
         }
-    }.minOrNull()
+    }
 }
 
 private fun ex1(): Int? {
     val (min, max) = input.minOrNull()!! to input.maxOrNull()!!
 
-    return (min..max).map {
-        input.sumBy { x -> abs(it - x) }
-    }.minOrNull()
+    return (min..max).minOfOrNull {
+        input.sumOf { x -> abs(it - x) }
+    }
 }

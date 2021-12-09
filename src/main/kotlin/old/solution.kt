@@ -109,7 +109,7 @@ fun exclusiveCanBe(v: List<TicketValue>): Set<String> {
     var startingSet = v[0].canBe.toSet()
 
     v.drop(1).forEach {
-        startingSet = startingSet.intersect(it.canBe)
+        startingSet = startingSet.intersect(it.canBe.toSet())
     }
 
     return startingSet

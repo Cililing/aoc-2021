@@ -21,7 +21,7 @@ fun <T> matrixOf(a: Int, vararg elements: T): Matrix<T> = elements.toList().chun
 
 fun <T> Matrix<T>.get(a: Int, b: Int): T = this[a][b]
 
-fun <T> Matrix<T>.get(c: Coordinates): T = this.get(c.x(), c.y())
+fun <T> Matrix<T>.get(c: Coordinates): T = this.get(c.x, c.y)
 
 fun <T> Matrix<T>.forEachIndexed(v: (a: Int, b: Int, v: T) -> Unit) {
     this.forEachIndexed { index1, row ->

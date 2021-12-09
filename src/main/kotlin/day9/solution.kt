@@ -48,7 +48,7 @@ fun Matrix<Basin>.expand(point: Coordinates, visitId: Int) {
     p.visitId = visitId
 
     // visit all points without visitId
-    this.adjacent(point.x(), point.y())
+    this.adjacent(point.x, point.y)
         .filter { it.second.visitId == null }
         .forEach { expand(it.first, visitId) }
 
