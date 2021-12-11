@@ -3,8 +3,6 @@ package day3
 import utils.input
 import utils.revBitMask
 import utils.trans
-import java.io.File
-import java.lang.IllegalArgumentException
 
 val input = input("day3/input.txt")
     .readLines()
@@ -73,7 +71,7 @@ fun List<List<Boolean>>.reduceByBit(f: (zeros: Int, ones: Int) -> Boolean): List
 
     while (res.size != 1) {
         val trans = res.trans()
-        val zeros = trans[index].count { !it}
+        val zeros = trans[index].count { !it }
         val ones = trans[index].count { it }
 
         val v = f(zeros, ones)

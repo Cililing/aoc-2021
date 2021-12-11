@@ -51,9 +51,7 @@ fun Matrix<Basin>.expand(point: Coordinates, visitId: Int) {
     this.adjacent(point.x, point.y)
         .filter { it.second.visitId == null }
         .forEach { expand(it.first, visitId) }
-
 }
-
 
 fun ex1(): Int {
     val res = mutableListOf<Int>()

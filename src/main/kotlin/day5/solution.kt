@@ -5,7 +5,6 @@ import utils.mutableMatrixOf
 import utils.x
 import utils.y
 
-
 val input: List<Pair<Coordinates, Coordinates>> = utils.input("day5/input.txt")
     .readLines()
     .map {

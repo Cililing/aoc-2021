@@ -1,6 +1,6 @@
 package day10
 
-import java.util.*
+import java.util.Stack
 
 val input = utils.input("day10/input.txt")
     .readLines()
@@ -33,14 +33,14 @@ fun ex2(): Any {
         it.map { getClosing(it) }
             .reversed()
             .map {
-                (when (it) {
+                when (it) {
                     // must be long due to overflow in case of Int
                     ')' -> 1L
                     ']' -> 2L
                     '}' -> 3L
                     '>' -> 4L
                     else -> throw IllegalArgumentException("must be one of allowed characters")
-                })
+                }
             }.reduce { acc, i ->
                 acc * 5 + i
             }
@@ -80,10 +80,7 @@ fun ex1(): Int {
 }
 
 fun isClosing(o: Char, c: Char): Boolean {
-    return o == '(' && c == ')'
-            || o == '[' && c == ']'
-            || o == '{' && c == '}'
-            || o == '<' && c == '>'
+    return o == '(' && c == ')' || o == '[' && c == ']' || o == '{' && c == '}' || o == '<' && c == '>'
 }
 
 fun getClosing(c: Char): Char {

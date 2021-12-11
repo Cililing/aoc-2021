@@ -7,4 +7,3 @@ val Coordinates.x: Int
 
 val Coordinates.y: Int
     get() = this.second
-

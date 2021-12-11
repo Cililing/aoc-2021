@@ -61,7 +61,6 @@ fun guessMappings(patterns: List<List<Char>>, printer: ((Any?) -> Unit)? = null)
     printer?.invoke("aaa found: $aaa")
     requireNonEqual(aaa)
 
-
     // using 4 and 9 we can determine ggg singal
     val n9 = patterns.filter { it.count() == 6 }
         .filter { it.containsAll(n4) }
@@ -87,13 +86,11 @@ fun guessMappings(patterns: List<List<Char>>, printer: ((Any?) -> Unit)? = null)
     printer?.invoke("bbb found: $bbb")
     requireNonEqual(aaa, ggg, eee, bbb)
 
-
     // by filtering data from 4 we can determine ddd signal
     val ddd = n4.filter { it != bbb }
         .first { !n1.contains(it) }
     printer?.invoke("ddd found: $ddd")
     requireNonEqual(aaa, ggg, eee, bbb, ddd)
-
 
     // by filtering data from 6 we can determine fff signal
     val n6 = patterns.asSequence().filter { it.count() == 6 }
@@ -116,7 +113,6 @@ fun guessMappings(patterns: List<List<Char>>, printer: ((Any?) -> Unit)? = null)
         .first { !n6.contains(it) }
     printer?.invoke("ccc found: $ccc")
     requireNonEqual(aaa, ggg, eee, bbb, ddd, fff, ccc)
-
 
     return mapOf(
         aaa to 'a',

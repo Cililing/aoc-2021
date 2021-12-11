@@ -12,7 +12,7 @@ const val resetValue = 6 // value when up to reset
 const val initValue = 8 // value when added to list
 
 fun main() {
-    //ex1()
+    ex1()
     ex2()
 }
 

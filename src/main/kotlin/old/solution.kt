@@ -56,10 +56,9 @@ fun main() {
         .filter { ticketValue ->
             !allRanges.any { it.contains(ticketValue) }
         }
-        //.let { println(it.count()) }
+        // .let { println(it.count()) }
         .sum()
         .let { println("invalid values sum: $it") }
-
 
     // ad 2
     val validTickets = tickets.filter { ticket ->
@@ -74,12 +73,10 @@ fun main() {
         }
     }
 
-
     data class Placement(
         val position: Int,
         val placement: MutableSet<String>
     )
-
 
     val possiblePlacements = mutableListOf<Placement>()
     (0..19).forEach { i ->
@@ -98,7 +95,6 @@ fun main() {
             it.placement.remove(found.placement.first())
         }
     }
-
 }
 
 fun TicketPlacement.isValid(i: Int): Boolean {

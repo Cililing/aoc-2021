@@ -50,8 +50,8 @@ fun <T> Matrix<T>.adjacent(a: Int, b: Int, includeDiagonals: Boolean = false): L
     )
 
     return positions.mapNotNull {
-        if (it.first >= 0 && it.first <= this.size - 1
-            && it.second >= 0 && it.second <= this[0].size - 1
+        if (it.first >= 0 && it.first <= this.size - 1 &&
+            it.second >= 0 && it.second <= this[0].size - 1
         ) {
             Coordinates(it.first, it.second) to this[it.first][it.second]
         } else null
@@ -67,8 +67,8 @@ fun <T> Matrix<T>.diagonalAdjacent(a: Int, b: Int): List<Pair<Coordinates, T>> {
     )
 
     return diagonalPositions.mapNotNull {
-        if (it.first >= 0 && it.first <= this.size - 1
-            && it.second >= 0 && it.second <= this[0].size - 1
+        if (it.first >= 0 && it.first <= this.size - 1 &&
+            it.second >= 0 && it.second <= this[0].size - 1
         ) {
             Coordinates(it.first, it.second) to this[it.first][it.second]
         } else null
@@ -88,4 +88,3 @@ fun <T> List<List<T>>.trans(): List<List<T>> {
  * Applies XOR operator on each element on the list
  */
 fun List<Boolean>.revBitMask() = this.map { !it }
-
