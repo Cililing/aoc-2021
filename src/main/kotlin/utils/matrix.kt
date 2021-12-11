@@ -41,23 +41,38 @@ fun <T> Adjacent<T>.values() = this.map { it.second }
  *
  * Not working for matrix of size 1
  */
-fun <T> Matrix<T>.adjacent(a: Int, b: Int): List<Pair<Coordinates, T>> {
-    val res = mutableListOf<Pair<Coordinates, T>>()
-    if (a > 0) {
-        // try to find up
-        res.add(Coordinates(a - 1, b) to this[a - 1][b])
+fun <T> Matrix<T>.adjacent(a: Int, b: Int, includeDiagonals: Boolean = false): List<Pair<Coordinates, T>> {
+    val positions = listOf(
+        (a - 1) to b,
+        (a + 1) to b,
+        a to (b - 1),
+        a to (b + 1)
+    )
+
+    return positions.mapNotNull {
+        if (it.first >= 0 && it.first <= this.size - 1
+            && it.second >= 0 && it.second <= this[0].size - 1
+        ) {
+            Coordinates(it.first, it.second) to this[it.first][it.second]
+        } else null
+    } + if (includeDiagonals) this.diagonalAdjacent(a, b) else listOf()
+}
+
+fun <T> Matrix<T>.diagonalAdjacent(a: Int, b: Int): List<Pair<Coordinates, T>> {
+    val diagonalPositions = listOf(
+        (a - 1) to (b - 1),
+        (a + 1) to (b + 1),
+        (a - 1) to (b + 1),
+        (a + 1) to (b - 1)
+    )
+
+    return diagonalPositions.mapNotNull {
+        if (it.first >= 0 && it.first <= this.size - 1
+            && it.second >= 0 && it.second <= this[0].size - 1
+        ) {
+            Coordinates(it.first, it.second) to this[it.first][it.second]
+        } else null
     }
-    if (a < this.size - 1) {
-        // try to find down
-        res.add(Coordinates(a + 1, b) to this[a + 1][b])
-    }
-    if (b > 0) {
-        res.add(Coordinates(a, b - 1) to this[a][b - 1])
-    }
-    if (b < this[0].size - 1) {
-        res.add(Coordinates(a, b + 1) to this[a][b + 1])
-    }
-    return res
 }
 
 /**
