@@ -15,6 +15,14 @@ fun <T> mutableMatrixOf(size: Int, initialValue: T): MutableMatrix<T> {
 }
 
 /**
+ * @param a number of rows
+ * @param b number of items in a single row
+ */
+fun <T> matrixOf(a: Int, b: Int, initialValue: () -> T): Matrix<T> {
+    return List(a * b) { initialValue() }.chunked(b)
+}
+
+/**
  * @param a number of items in a single row (applicable to all rows)
  */
 fun <T> matrixOf(a: Int, vararg elements: T): Matrix<T> = elements.toList().chunked(a)
