@@ -3,9 +3,6 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
 }
 
-group "com.cililing"
-version "1.0-SNAPSHOT"
-
 repositories {
     mavenCentral()
 }
