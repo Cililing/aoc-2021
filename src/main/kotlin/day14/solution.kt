@@ -15,7 +15,7 @@ val rules = input("day14/input.txt")
     .associate { it.first() to it[0][0] + it[1] + it[0][1] }
 
 fun main() {
-    println(ex2(input, 10))
+    println(ex1(input, 10))
     println(ex2(input, 40))
 }
 
@@ -68,8 +68,8 @@ fun <T> MutableMap<T, BigInteger>.putOrAdd(k: T, inc: BigInteger = BigInteger.ON
     this[k] = (this[k] ?: BigInteger.ZERO) + inc
 }
 
-fun ex1(inn: String, steps: Int): Int {
-    var current = input.joinToString("")
+fun ex1(inn: List<Char>, steps: Int): Int {
+    var current = inn.joinToString("")
 
     repeat((0 until steps).count()) {
         current = replace(current)
