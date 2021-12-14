@@ -2,24 +2,15 @@ package day13
 
 import utils.*
 
-val input = input("day13/input.txt")
-    .readLines()
-    .takeWhile { it != "" }
-    .map { it.split(",") }
-    .map { Coordinates(it[0].toInt(), it[1].toInt()) }
-    .toSet()
+val input = input("day13/input.txt").readLines().takeWhile { it != "" }.map { it.split(",") }
+    .map { Coordinates(it[0].toInt(), it[1].toInt()) }.toSet()
 
 data class Fold(val axis: Char, val n: Int)
 
-val folds = input("day13/input.txt")
-    .readLines()
-    .takeLastWhile { it != "" }
-    .map { it.takeLastWhile { it != ' ' } }
-    .map { it.split("=") }
-    .map {
+val folds = input("day13/input.txt").readLines().takeLastWhile { it != "" }.map { it.takeLastWhile { it != ' ' } }
+    .map { it.split("=") }.map {
         Fold(it.first()[0], it[1].toInt())
     }
-
 
 fun main() {
     println(ex1())
