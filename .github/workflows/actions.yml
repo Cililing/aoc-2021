@@ -12,11 +12,10 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: 8
-      # https://github.com/gradle/gradle-build-action
       - uses: eskatos/gradle-command-action@v1
         with:
           arguments: build
-          wrapper-cache-enabled: true
+          distributions-cache-enabled: true
           dependencies-cache-enabled: true
           configuration-cache-enabled: true
 
@@ -27,10 +26,9 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: 8
-      # https://github.com/gradle/gradle-build-action
       - uses: eskatos/gradle-command-action@v1
         with:
           arguments: ktlintCheck
-          wrapper-cache-enabled: true
+          distributions-cache-enabled: true
           dependencies-cache-enabled: true
           configuration-cache-enabled: true
