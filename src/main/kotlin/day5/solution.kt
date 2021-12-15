@@ -20,22 +20,62 @@ val input: List<Pair<Coordinates, Coordinates>> = utils.input("day5/input.txt")
         )
     }
 
-// TODO(day5): the main function should have only invocations of ex1/ex2
+val vertical = input.filter { it.isVertical() }.map {
+    if (it.first.first < it.second.first) it else Pair(it.second, it.first)
+}
+
+val horizontal = input.filter { it.isHorizontal() }.map {
+    if (it.first.second < it.second.second) it else Pair(it.second, it.first)
+}
+
+val maxSize = input.map {
+    listOf(it.first.first, it.first.second, it.second.first, it.second.second)
+}.flatten().maxOrNull()!!
+
+val diagonal = input.filter { it.isDiagonal() && !it.isHorizontal() && !it.isVertical() }
+
 fun main() {
-    val maxSize = input.map {
-        listOf(it.first.first, it.first.second, it.second.first, it.second.second)
-    }.flatten().maxOrNull()!!
+    println(ex1())
+    println(ex2())
+}
 
-    val vertical = input.filter { it.isVertical() }.map {
-        if (it.first.first < it.second.first) it else Pair(it.second, it.first)
-    }
-    val horizontal = input.filter { it.isHorizontal() }.map {
-        if (it.first.second < it.second.second) it else Pair(it.second, it.first)
-    }
-
+fun ex1(): Int {
     val m = mutableMatrixOf(maxSize + 1, 0)
+    applyVertical(m)
+    applyHorizontal(m)
+    return m.flatten().count { it >= 2 }
+}
 
-    // apply vertical
+fun ex2(): Int {
+    val m = mutableMatrixOf(maxSize + 1, 0)
+    applyVertical(m)
+    applyHorizontal(m)
+    applyDiagonal(m)
+    return m.flatten().count { it >= 2 }
+}
+
+fun applyDiagonal(m: MutableMatrix<Int>) {
+    diagonal.forEach {
+        val cords = it.getDiagonalCoords()
+        cords.forEach {
+            m[it.second][it.first]++
+        }
+    }
+}
+
+fun applyHorizontal(m: MutableMatrix<Int>) {
+    horizontal.forEach {
+        val y = it.first.first
+        val xStart = it.first.second
+        val xEnd = it.second.second
+
+        (xStart..xEnd).forEach {
+            m[it][y]++
+        }
+    }
+}
+
+fun applyVertical(m: MutableMatrix<Int>) {
     vertical.forEach {
         // apply only first cord
         val x = it.first.second
@@ -46,26 +86,4 @@ fun main() {
             m[x][it]++
         }
     }
-    horizontal.forEach {
-        val y = it.first.first
-        val xStart = it.first.second
-        val xEnd = it.second.second
-
-        (xStart..xEnd).forEach {
-            m[it][y]++
-        }
-    }
-
-    println(m.flatten().count { it >= 2 })
-
-    // apply also diagonals
-    val diagonal = input.filter { it.isDiagonal() && !it.isHorizontal() && !it.isVertical() }
-    diagonal.forEach {
-        val cords = it.getDiagonalCoords()
-        cords.forEach {
-            m[it.second][it.first]++
-        }
-    }
-
-    println(m.flatten().count { it >= 2 })
 }
