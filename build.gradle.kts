@@ -7,6 +7,10 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    implementation("org.jgrapht:jgrapht-core:1.5.1")
+}
+
 tasks {
     sourceSets {
         main {
