@@ -1,9 +1,6 @@
 package day5
 
-import utils.Coordinates
-import utils.mutableMatrixOf
-import utils.x
-import utils.y
+import utils.*
 
 val input: List<Pair<Coordinates, Coordinates>> = utils.input("day5/input.txt")
     .readLines()
@@ -23,6 +20,7 @@ val input: List<Pair<Coordinates, Coordinates>> = utils.input("day5/input.txt")
         )
     }
 
+// TODO(day5): the main function should have only invocations of ex1/ex2
 fun main() {
     val maxSize = input.map {
         listOf(it.first.first, it.first.second, it.second.first, it.second.second)
@@ -70,69 +68,4 @@ fun main() {
     }
 
     println(m.flatten().count { it >= 2 })
-}
-
-fun Pair<Coordinates, Coordinates>.isVertical(): Boolean {
-    return this.first.second == this.second.second
-}
-
-fun Pair<Coordinates, Coordinates>.isHorizontal(): Boolean {
-    return this.first.first == this.second.first
-}
-
-fun Pair<Coordinates, Coordinates>.isDiagonal(): Boolean {
-    val dy: Int = this.first.second - this.second.second
-    val dx: Int = this.first.first - this.second.first
-    return dx == 0 || dy == 0 || dx == dy || dx == -dy
-}
-
-fun Pair<Coordinates, Coordinates>.getDiagonalCoords(): List<Coordinates> {
-    val res = mutableListOf<Coordinates>()
-    var current = this.first
-
-    // diagonal x increasing, y increasing
-    if (second.x > first.x && second.y >= first.y) {
-        do {
-            res.add(current)
-            current = current.copy(current.first + 1, current.second + 1)
-        } while (current != this.second)
-        res.add(current) // include the last one
-
-        return res
-    }
-
-    // diagonal x increasing, y decreasing
-    if (second.x > first.x && second.y <= first.y) {
-        do {
-            res.add(current)
-            current = current.copy(current.first + 1, current.second - 1)
-        } while (current != this.second)
-        res.add(current)
-
-        return res
-    }
-
-    // diagonal x decreasing, y increasing
-    if (second.x <= first.x && second.y > first.y) {
-        do {
-            res.add(current)
-            current = current.copy(current.first - 1, current.second + 1)
-        } while (current != this.second)
-        res.add(current)
-
-        return res
-    }
-
-    // diagonal x decreasing, y decreasing
-    if (second.x <= first.x && second.y < first.y) {
-        do {
-            res.add(current)
-            current = current.copy(current.first - 1, current.second - 1)
-        } while (current != this.second)
-        res.add(current)
-
-        return res
-    }
-
-    return emptyList()
 }

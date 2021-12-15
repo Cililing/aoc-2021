@@ -12,12 +12,12 @@ const val resetValue = 6 // value when up to reset
 const val initValue = 8 // value when added to list
 
 fun main() {
-    ex1()
-    ex2()
+    println(ex1())
+    (ex2())
 }
 
-private fun ex2() {
-    val days = 1024
+private fun ex2(): BigInteger {
+    val days = 256
 
     var totalUnderflow = BigInteger.ZERO
     var currentValues = mapOf<Int, BigInteger?>(
@@ -55,14 +55,12 @@ private fun ex2() {
         currentValues.values.forEach {
             total += it ?: BigInteger.ZERO
         }
-
-        println("underflow after $it day: $totalUnderflow")
-        println("list-length after $it day: $total")
     }
+    return totalUnderflow
 }
 
-private fun ex1() {
-    val days = 256
+private fun ex1(): Int {
+    val days = 40
     var list = input
 
     var totalUnderflows = 0
@@ -87,11 +85,7 @@ private fun ex1() {
 
         list = list + newValues
         totalUnderflows += underflow
-
-        println("days ready: $it")
-        // println("after $it days: $list (total: ${list.sum()})")
     }
 
-    println("total underflow: $totalUnderflows")
-    println("list-length: ${list.count()}")
+    return totalUnderflows
 }

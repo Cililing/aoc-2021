@@ -7,16 +7,20 @@ val input = input("day1/input.txt")
     .map { it.toInt() }
 
 fun main() {
-    // 1
-    input.zipWithNext().count { it.second > it.first }.let { println(it) }
+    println(ex1())
+    println(ex2())
+}
 
-    // 2
-    input.asSequence() // for performance
+fun ex2(): Int {
+    return input.asSequence() // for performance
         .zipWithNext()
         .zipWithNext()
         // res := ((n, n+1), (n+1, n+2)), but we want get the sum of n, n+1, n+2
         .map { it.first.first + it.first.second + it.second.second }
         .zipWithNext()
         .count { it.second > it.first }
-        .let { println(it) }
+}
+
+fun ex1(): Int {
+    return input.zipWithNext().count { it.second > it.first }
 }

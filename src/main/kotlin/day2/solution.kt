@@ -24,12 +24,11 @@ val input = utils.input("day2/input.txt")
 data class Position(var horizontal: Int = 0, var vertical: Int = 0, var aim: Int = 0)
 
 fun main() {
-    ex1()
-    println("---------")
-    ex2()
+    println(ex1())
+    println(ex2())
 }
 
-private fun ex2() {
+fun ex2(): Int {
     val position = Position()
     input.forEach {
         when (it.first) {
@@ -40,13 +39,12 @@ private fun ex2() {
             Direction.Up -> position.aim -= it.second
             Direction.Down -> position.aim += it.second
         }
-        println(position)
     }
-    println("final position is: $position")
-    println("product of position is: ${position.horizontal * position.vertical}")
+
+    return position.horizontal * position.vertical
 }
 
-private fun ex1() {
+fun ex1(): Int {
     val position = Position()
     input.forEach {
         when (it.first) {
@@ -56,6 +54,5 @@ private fun ex1() {
         }
     }
 
-    println("final position is: $position")
-    println("product of position is: ${position.horizontal * position.vertical}")
+    return position.horizontal * position.vertical
 }

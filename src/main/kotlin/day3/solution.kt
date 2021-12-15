@@ -11,6 +11,30 @@ val input = input("day3/input.txt")
     }
 
 fun main() {
+    println(ex1())
+    println(ex2())
+}
+
+fun ex2(): Int {
+    val ox = input.reduceByBit { zeros, ones ->
+        when {
+            ones > zeros -> true
+            zeros > ones -> false
+            else -> true
+        }
+    }
+    val co2 = input.reduceByBit { zeros, ones ->
+        when {
+            ones < zeros -> true
+            zeros < ones -> false
+            else -> false
+        }
+    }
+
+    return binaryToDec.invoke(ox) * binaryToDec.invoke(co2)
+}
+
+fun ex1(): Int {
     val result = mutableListOf<Boolean>()
     input.trans().forEach { v ->
         val zeros = v.count { !it }
@@ -28,41 +52,7 @@ fun main() {
         }
     }
 
-    val binaryToDec = { i: List<Boolean> ->
-        i.joinToString(separator = "") {
-            it.toString()
-        }.also { println(it) }
-            .toInt(2)
-            .also { println(it) }
-    }
-
-    println(
-        "product: ${
-        binaryToDec.invoke(result) * binaryToDec.invoke(result.revBitMask())
-        }"
-    )
-
-    // part 2
-    val ox = input.reduceByBit { zeros, ones ->
-        when {
-            ones > zeros -> true
-            zeros > ones -> false
-            else -> true
-        }
-    }
-    val co2 = input.reduceByBit { zeros, ones ->
-        when {
-            ones < zeros -> true
-            zeros < ones -> false
-            else -> false
-        }
-    }
-
-    println(
-        "product of multiplying oxygen and co2 is ${
-        binaryToDec.invoke(ox) * binaryToDec.invoke(co2)
-        }"
-    )
+    return binaryToDec.invoke(result) * binaryToDec.invoke(result.revBitMask())
 }
 
 fun List<List<Boolean>>.reduceByBit(f: (zeros: Int, ones: Int) -> Boolean): List<Boolean> {
@@ -80,4 +70,10 @@ fun List<List<Boolean>>.reduceByBit(f: (zeros: Int, ones: Int) -> Boolean): List
         index++
     }
     return res[0]
+}
+
+val binaryToDec = { i: List<Boolean> ->
+    i.joinToString(separator = "") {
+        it.toString()
+    }.toInt(2)
 }

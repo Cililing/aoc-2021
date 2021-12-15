@@ -19,30 +19,11 @@ val boards = input.drop(1)
 typealias Matrix = utils.Matrix<Int>
 
 fun main() {
-    // 1. find winning board
-    var winningIndex = 0
-    var winningBoard: Matrix? = null
+    println(ex1())
+    println(ex2())
+}
 
-    while (winningBoard == null) {
-        for (i in order.indices) {
-            val currentNumbers = order.take(i)
-            for (b in boards) {
-                if (b.isWinning(currentNumbers)) {
-                    winningIndex = i
-                    winningBoard = b
-                    break
-                }
-            }
-            if (winningBoard != null) {
-                break
-            }
-        }
-    }
-
-    println(winningBoard.score(order.take(winningIndex)))
-    println(order.take(winningIndex))
-
-    // 2. find last winning
+fun ex2(): Int {
     val allBoards = boards.toMutableList()
     var lastWinningBoard: Matrix? = null
     var currentNumbers = listOf<Int>()
@@ -62,8 +43,30 @@ fun main() {
         }
     }
 
-    println(lastWinningBoard!!.score(currentNumbers))
-    println(currentNumbers)
+    return lastWinningBoard!!.score(currentNumbers)
+}
+
+fun ex1(): Int {
+    var winningIndex = 0
+    var winningBoard: Matrix? = null
+
+    while (winningBoard == null) {
+        for (i in order.indices) {
+            val currentNumbers = order.take(i)
+            for (b in boards) {
+                if (b.isWinning(currentNumbers)) {
+                    winningIndex = i
+                    winningBoard = b
+                    break
+                }
+            }
+            if (winningBoard != null) {
+                break
+            }
+        }
+    }
+
+    return winningBoard.score(order.take(winningIndex))
 }
 
 fun Matrix.score(input: List<Int>): Int {
