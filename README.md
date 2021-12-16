@@ -1,5 +1,7 @@
 # AOC-2021
 
+[![aoc-ci](https://github.com/Cililing/aoc-2021/actions/workflows/actions.yml/badge.svg)](https://github.com/Cililing/aoc-2021/actions/workflows/actions.yml)
+
 Kotlin!
 
 # Native?
