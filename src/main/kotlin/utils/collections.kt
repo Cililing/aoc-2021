@@ -7,3 +7,7 @@ fun <T> requireNonEqual(vararg elements: T) {
         throw IllegalStateException("all elements must be unique")
     }
 }
+
+fun <T> T.oneItemList(): List<T> {
+    return listOf(this)
+}
